@@ -69,22 +69,22 @@ def antigravity():
         energy_pref = 0.3
         dance_pref = 0.4
         
-    # 2. Genre Detection
+    
     all_genres = ["pop", "rock", "hip-hop", "jazz", "electronic", "classical", "r&b", "edm"]
     selected_genres = [g for g in all_genres if g in message]
     
-    # Fix casing for exact matching in db
+    
     genre_mapping = {
         "pop": "Pop", "rock": "Rock", "hip-hop": "Hip-Hop", "jazz": "Jazz", 
         "electronic": "Electronic", "classical": "Classical", "r&b": "R&B", "edm": "EDM"
     }
     selected_genres_capitalized = [genre_mapping[g] for g in selected_genres]
     
-    # Get recommendations based on detected intent
-    rec_results = process_recommendations(songs, selected_genres_capitalized, target_mood, energy_pref, dance_pref, activity_pref)
-    top_songs = rec_results['top_songs'][:3] # Top 3 for chat
     
-    # 3. Generate conversational response
+    rec_results = process_recommendations(songs, selected_genres_capitalized, target_mood, energy_pref, dance_pref, activity_pref)
+    top_songs = rec_results['top_songs'][:3] 
+    
+    
     templates = []
     if target_mood == "Sedih":
         templates = [
@@ -105,7 +105,7 @@ def antigravity():
             "Sip, ini beberapa lagu yang pas banget buat kamu dengerin sekarang:"
         ]
         
-    # Add context if genre was detected
+    
     response_text = random.choice(templates)
     if selected_genres:
         g_str = ", ".join(selected_genres_capitalized)
