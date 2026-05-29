@@ -8,7 +8,7 @@ def apply_set_theory(selected_genres, songs):
     if not selected_genres:
         return songs, {"formula": "A ∪ B = {}", "sets": {}}
     
-    # Create sets of song IDs for each genre
+    
     genre_sets = {}
     for song in songs:
         for genre in song["genre"]:
@@ -16,7 +16,7 @@ def apply_set_theory(selected_genres, songs):
                 genre_sets[genre] = set()
             genre_sets[genre].add(song["id"])
             
-    # Perform union of selected genres
+    
     result_set = set()
     sets_info = {}
     for g in selected_genres:
@@ -69,7 +69,7 @@ def evaluate_boolean_logic(song, target_mood):
     else: # Netral
         matches_mood = 0.4 <= valence <= 0.6
         
-    # Logic expression: (is_popular AND matches_mood) OR (is_recent AND matches_mood AND NOT is_popular)
+    
     expr1 = is_popular and matches_mood
     expr2 = is_recent and matches_mood and not is_popular
     final_result = expr1 or expr2
@@ -85,12 +85,12 @@ def process_recommendations(songs, selected_genres, target_mood, pref_energy, pr
     """
     Orchestrates math concepts for the recommendation pipeline.
     """
-    # 1. SET THEORY (Genre filter)
+    
     filtered_songs, set_info = apply_set_theory(selected_genres, songs)
     if not filtered_songs:
         filtered_songs = songs # Fallback if no genre selected
         
-    # Map mood to valence preference for vector
+    
     if target_mood == "Bahagia":
         pref_valence = 0.8
     elif target_mood == "Sedih":
@@ -98,10 +98,10 @@ def process_recommendations(songs, selected_genres, target_mood, pref_energy, pr
     else:
         pref_valence = 0.5
         
-    # User preference vector
+    
     P = [pref_energy, pref_danceability, pref_valence, 0.6, 0.3]
     
-    # 2. VECTORS
+    
     results = []
     for i, song in enumerate(filtered_songs):
         vec_song = get_feature_vector(song)
