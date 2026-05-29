@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBeat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>SmartBeat</h1>
+        <p class="subtitle">Sistem Rekomendasi Lagu Cerdas Anda</p>
+    </header>
+
+    <main>
+        <section class="panel input-panel">
+            <h2>Preferensi Pengguna</h2>
+            <form id="recommendation-form">
+                <div class="form-group">
+                    <label>Genre Favorit:</label>
+                    <div class="checkbox-group" id="genre-checkboxes">
+                        <label><input type="checkbox" value="Pop"> Pop</label>
+                        <label><input type="checkbox" value="Rock"> Rock</label>
+                        <label><input type="checkbox" value="Hip-Hop"> Hip-Hop</label>
+                        <label><input type="checkbox" value="Jazz"> Jazz</label>
+                        <label><input type="checkbox" value="Electronic"> Electronic</label>
+                        <label><input type="checkbox" value="Classical"> Classical</label>
+                        <label><input type="checkbox" value="R&B"> R&B</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Suasana Hati:</label>
+                    <select id="mood" name="mood">
+                        <option value="Bahagia">Bahagia</option>
+                        <option value="Netral" selected>Netral</option>
+                        <option value="Sedih">Sedih</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Suasana Kegiatan:</label>
+                    <select id="activity" name="activity">
+                        <option value="Bekerja" selected>Bekerja</option>
+                        <option value="Belajar">Belajar</option>
+                        <option value="Olahraga">Olahraga</option>
+                        <option value="Santai">Santai</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-primary">🎵 Dapatkan Rekomendasi</button>
+            </form>
+        </section>
+
+        <div id="results-container" class="hidden">
+            <section class="panel charts-panel">
+                <h2>Visualisasi Fitur Audio</h2>
+                <div class="charts-container">
+                    <div class="chart-wrapper">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel recommendations-panel">
+                <h2>Rekomendasi Teratas</h2>
+                <div id="recommendations-list" class="cards-container">
+                    <!-- Cards injected by JS -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- SmartBeat AI Chat -->
+    <div id="ag-chat-bubble" class="ag-bubble">
+        🎵 Tanya SmartBeat
+    </div>
+    
+    <div id="ag-chat-window" class="ag-window hidden">
+        <div class="ag-header">
+            <h3>SmartBeat AI</h3>
+            <button id="ag-close-btn">&times;</button>
+        </div>
+        <div class="ag-messages" id="ag-messages">
+            <div class="ag-msg-row ag-system">
+                <div class="ag-bubble-msg">
+                    Halo! Aku asisten SmartBeat 🎵 Ceritain dong suasana hatimu atau genre apa yang lagi pengen didengerin?
+                </div>
+            </div>
+        </div>
+        <div class="ag-input-area">
+            <input type="text" id="ag-input" placeholder="Ketik pesan..." autocomplete="off">
+            <button id="ag-send-btn">Kirim</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
